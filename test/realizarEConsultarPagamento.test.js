@@ -5,10 +5,10 @@ import assert from 'node:assert';
 describe('Classe para realizar e consultar pagamento', ()=>{
     it('Validar que ao pagar R$100.00 exibiu a categoria "padrão" ', ()=>{
         //arrange
-        const realizarEConsultarPagamentos = new RealizarEConsultarPagamentos();
+        const realizarEConsultarPagamento = new RealizarEConsultarPagamentos();
         //act
-        realizarEConsultarPagamentos.realizarPagamento('12365-48748-548787-48787', 'Testes SA', 100.00, 'padrão');
-        const pagamentos = realizarEConsultarPagamentos.consultarPagamento();
+        realizarEConsultarPagamento.realizarPagamento('12365-48748-548787-48787', 'Testes SA', 100.00);
+        const pagamentos = realizarEConsultarPagamento.consultarPagamento();
         const meuPagamento = pagamentos.at(-1);
 
         //assert
@@ -19,10 +19,10 @@ describe('Classe para realizar e consultar pagamento', ()=>{
     }),
     it('Validar que ao pagar R$101.00 exibiu a categoria "cara" ', ()=>{
         //arrange
-        const realizarEConsultarPagamentos = new RealizarEConsultarPagamentos();
+        const realizarEConsultarPagamento = new RealizarEConsultarPagamentos();
         //act
-        realizarEConsultarPagamentos.realizarPagamento('12365-48748-548787-48787', 'Testes SA', 101.00, 'cara');
-        const pagamentos = realizarEConsultarPagamentos.consultarPagamento();
+        realizarEConsultarPagamento.realizarPagamento('12365-48748-548787-48787', 'Testes SA', 101.00);
+        const pagamentos = realizarEConsultarPagamento.consultarPagamento();
         const meuPagamento = pagamentos.at(-1);
 
         //assert
@@ -31,34 +31,59 @@ describe('Classe para realizar e consultar pagamento', ()=>{
         assert.equal(meuPagamento.valorPago, 101.00);
         assert.equal(meuPagamento.categoria, 'cara')
     })
-    it('Deve lançar erro ao não informar um valor de pagamento ', ()=>{
+    it('Deve lançar erro ao não informar um valor de pagamento', ()=>{
         //arrange
-        const realizarEConsultarPagamentos = new RealizarEConsultarPagamentos();
+        const realizarEConsultarPagamento = new RealizarEConsultarPagamentos();
         //assert
         assert.throws(() => {
-            realizarEConsultarPagamentos.realizarPagamento('12365-48748-548787-48787', 'Testes SA',0);
+            realizarEConsultarPagamento.realizarPagamento('12365-48748-548787-48787', 'Testes SA');
         }, {message:"Valor inválido para realizar o pagamento."} 
         );
     })
-    it('Deve lançar erro ao não informar uma empresa', ()=>{
+    it('Deve lançar erro ao informar o valor de pagamento igual a zero (0)', ()=>{
         //arrange
-        const realizarEConsultarPagamentos = new RealizarEConsultarPagamentos();
+        const realizarEConsultarPagamento = new RealizarEConsultarPagamentos();
         //assert
         assert.throws(() => {
-            realizarEConsultarPagamentos.realizarPagamento('12365-48748-548787-48787', '', 54);
-        }, {message:"Precisa ser preenchido um nome válido para a empresa."} 
+            realizarEConsultarPagamento.realizarPagamento('12365-48748-548787-48787', 'Testes SA',0);
+        }, {message:"Valor inválido para realizar o pagamento."} 
         );
     })
-    it('Deve lançar erro ao não informar o código de barras', ()=>{
+    it('Deve lançar erro ao informar null na empresa', ()=>{
         //arrange
-        const realizarEConsultarPagamentos = new RealizarEConsultarPagamentos();
+        const realizarEConsultarPagamento = new RealizarEConsultarPagamentos();
         //assert
         assert.throws(() => {
-            realizarEConsultarPagamentos.realizarPagamento(null,'Testes Sa', 54);
+            realizarEConsultarPagamento.realizarPagamento('12365-48748-548787-48787',null ,54);
+            }, {message:"Precisa ser preenchido um nome válido para a empresa."} 
+        );
+    })
+    it('Deve lançar erro ao informar uma empresa com nome vazio', ()=>{
+        //arrange
+        const realizarEConsultarPagamento = new RealizarEConsultarPagamentos();
+        //assert
+        assert.throws(() => {
+            realizarEConsultarPagamento.realizarPagamento('12365-48748-548787-48787', '', 54);
+            }, {message:"Precisa ser preenchido um nome válido para a empresa."} 
+        );
+    })
+    it('Deve lançar erro ao informar o código de barras vazio', ()=>{
+        //arrange
+        const realizarEConsultarPagamento = new RealizarEConsultarPagamentos();
+        //assert
+        assert.throws(() => {
+            realizarEConsultarPagamento.realizarPagamento('','Testes Sa', 54);
+            }, {message:"Precisa ser informado um código de barras."} 
+        );
+    })
+    it('Deve lançar erro ao informar o código de barras null', ()=>{
+        //arrange
+        const realizarEConsultarPagamento = new RealizarEConsultarPagamentos();
+        //assert
+        assert.throws(() => {
+            realizarEConsultarPagamento.realizarPagamento(null,'Testes Sa', 54);
         }, {message:"Precisa ser informado um código de barras."} 
         );
     })
-    
-
- 
+     
 })
