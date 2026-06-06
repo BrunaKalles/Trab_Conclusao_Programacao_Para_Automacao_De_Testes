@@ -9,7 +9,7 @@ on:
    #crononograma de execução
   # 1º - minuto, 2º - hora,  3º- dia do mês, 4º - mês, 5º - dia da semana
   schedule:
-    - cron: '0 /6 * * *' # executa a cada 6 horas, ou seja, 4 vezes ao dia
+    - cron: '0 */6 * * *' # a cada 6 horas, ou seja, 4 vezes ao dia
   
   # disparo por push
   push:
