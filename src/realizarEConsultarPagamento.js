@@ -21,44 +21,44 @@ O método de consultar trará apenas o último pagamento.
 */
 
 export default class RealizarEConsultarPagamentos {
-    #pagamentos // Propriedade Privada
+  #pagamentos; // Propriedade Privada
 
-    constructor() { // Primeiro método a ser executado quando usar a Classe
-        this.#pagamentos = [];
+  constructor() { // Primeiro método a ser executado quando usar a Classe
+    this.#pagamentos = [];
 
+  }
+
+  realizarPagamento(codigoBarras, empresa, valorPago) { // Método
+
+    let categoria;
+
+    if(!valorPago){
+      throw new Error ('Valor inválido para realizar o pagamento.');
+    }
+    if(!empresa){
+      throw new Error ('Precisa ser preenchido um nome válido para a empresa.');
+    }
+    if(!codigoBarras){
+      throw new Error ('Precisa ser informado um código de barras.');
     }
 
-    realizarPagamento(codigoBarras, empresa, valorPago) { // Método
 
-        let categoria;
-
-        if(!valorPago){
-            throw new Error ('Valor inválido para realizar o pagamento.');
-        }
-        if(!empresa){
-            throw new Error ('Precisa ser preenchido um nome válido para a empresa.');
-        }
-        if(!codigoBarras){
-            throw new Error ('Precisa ser informado um código de barras.');
-        }
-
-
-        if (valorPago > 100) {
-            categoria = 'cara';
-        } else {
-            categoria = 'padrão';
-        }
-
-        this.#pagamentos.push({
-            codigoDeBarras: codigoBarras,
-            nomeEmpresa: empresa,
-            valorPago: valorPago,
-            categoria: categoria
-        })
+    if (valorPago > 100) {
+      categoria = 'cara';
+    } else {
+      categoria = 'padrão';
     }
+
+    this.#pagamentos.push({
+      codigoDeBarras: codigoBarras,
+      nomeEmpresa: empresa,
+      valorPago: valorPago,
+      categoria: categoria
+    });
+  }
     
-    consultarPagamento() {
-        return this.#pagamentos
-    }
+  consultarPagamento() {
+    return this.#pagamentos;
+  }
 }
 

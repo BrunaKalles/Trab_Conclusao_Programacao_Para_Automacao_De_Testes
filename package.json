@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "test:ci": "mocha --reporter mochawesome"
+    "test:ci": "mocha --reporter mochawesome",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,8 @@
   },
   "homepage": "https://github.com/BrunaKalles/Trab_Conclusao_Programacao_Para_Automacao_De_Testes#readme",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.4.1",
     "mocha": "^11.7.6",
     "mocha-junit-reporter": "^2.2.1",
     "mochawesome": "^7.1.4"
