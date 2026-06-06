@@ -46,3 +46,4 @@ jobs:
         with:
           name: relatorio-mochawesome
           path: mochawesome-report/
+          retention-days: 30

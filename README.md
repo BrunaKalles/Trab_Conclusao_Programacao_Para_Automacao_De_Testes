@@ -29,11 +29,11 @@ Este projeto implementa uma solução para **realizar e consultar pagamentos** u
 A pipeline foi configurada no GitHub Actions para executar testes automaticamente através de três gatilhos:
 
 ```yaml
-Disparo Manual (workflow_dispatch) 
+Disparo Manual (workflow_dispatch)  - Esse caracteriza o CI de nível 1
       ↓
-Pipeline CI/CD → Executa a cada 6 horas (schedule)
+Pipeline CI/CD → Executa a cada 6 horas (schedule) - Esse caracteriza o CI de nível 2
       ↓
-Push na branch main (push event)
+Push na branch main (push event) - - Esse caracteriza o CI de nível 3
 ```
 
 ### Fluxo de Execução
@@ -54,6 +54,59 @@ Push na branch main (push event)
 5️⃣ Upload do Relatório
    └─ Artefato: mochawesome-report/ (actions/upload-artifact@v4)
 ```
+
+### Detalhamento dos Jobs
+
+#### 🧪 Job: `unit-tests`
+
+**Ambiente:** `ubuntu-latest` (VM Linux com as ferramentas mais recentes)
+
+**Steps Executados:**
+
+| # | Step | Descrição | Ação |
+|----|------|-----------|------|
+| 1 | **Checkout** | Clone do repositório | `actions/checkout@v4` |
+| 2 | **Verificar máquina** | Exibe informações da máquina que está rodando | `hostname` |
+| 3 | **Setup Node.js** | Instala Node.js versão 24.x | `actions/setup-node@v4` |
+| 4 | **Instalar dependências** | Instala todas as dependências do projeto | `npm install` |
+| 5 | **Executar testes** | Executa os testes com reporter Mochawesome | `npm run test:ci` |
+| 6 | **Upload Relatório** | Envia o relatório como artefato | `actions/upload-artifact@v4` |
+
+**Detalhes Técnicos:**
+
+```yaml
+unit-tests:
+  runs-on: ubuntu-latest          # Executa em máquina Linux
+  steps:
+    - uses: actions/checkout@v4   # Clona o repositório
+    
+    - name: Verificar máquina
+      run: hostname               # Exibe o hostname da máquina
+    
+    - uses: actions/setup-node@v4 # Configura Node.js
+      with:
+        node-version: 24.x        # Versão 24.x do Node.js
+    
+    - name: Instalar dependências
+      run: npm install            # Instala todas as dependências
+    
+    - name: Executar testes
+      run: npm run test:ci         # Executa testes com Mochawesome
+    
+    - name: Relatório de Testes
+      uses: actions/upload-artifact@v4
+      if: always()                # Executa sempre, mesmo com falhas
+      with:
+        name: relatorio-mochawesome
+        path: mochawesome-report/ # Pasta com os relatórios
+        retention-days: 30        # Mantém o artefato por 30 dias
+```
+
+**Características Importantes:**
+
+- ✅ **`if: always()`**: O upload do relatório acontece mesmo que os testes falhem, garantindo rastreabilidade
+- ✅ **Artifacts**: Os relatórios ficam disponíveis para download por **30 dias** (`retention-days: 30`)
+- ✅ **Node.js 24.x**: Versão LTS com suporte completo a ES6 modules
 
 ### Gatilhos da Pipeline
 
