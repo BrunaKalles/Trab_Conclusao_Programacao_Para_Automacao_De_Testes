@@ -36,9 +36,6 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      - name: Criar pasta de relatórios
-        run: mkdir -p reports
-
       - name: Executar testes
         run: npm run test:ci
 
