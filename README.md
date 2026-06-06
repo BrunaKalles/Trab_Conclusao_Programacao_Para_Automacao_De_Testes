@@ -31,9 +31,9 @@ A pipeline foi configurada no GitHub Actions para executar testes automaticament
 ```yaml
 Disparo Manual (workflow_dispatch)  - Esse caracteriza o CI de nível 1
       ↓
-Pipeline CI/CD → Executa a cada 6 horas (schedule) - Esse caracteriza o CI de nível 2
+Disparo agendado → Executa a cada 6 horas (schedule) - Esse caracteriza o CI de nível 2
       ↓
-Push na branch main (push event) - - Esse caracteriza o CI de nível 3
+Disparo através do Push na branch main (push event) - Esse caracteriza o CI de nível 3
 ```
 
 ### Fluxo de Execução
