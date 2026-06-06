@@ -47,5 +47,5 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: relatorio-testes
-          path: reports/
+          name: relatorio-mochawesome
+          path: mochawesome-report/
