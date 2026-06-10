@@ -8,8 +8,7 @@ describe('Classe para realizar e consultar pagamento', ()=>{
     const realizarEConsultarPagamento = new RealizarEConsultarPagamentos();
     //act
     realizarEConsultarPagamento.realizarPagamento('12365-48748-548787-48787', 'Testes SA', 100.00);
-    const pagamentos = realizarEConsultarPagamento.consultarPagamento();
-    const meuPagamento = pagamentos.at(-1);
+    const meuPagamento = realizarEConsultarPagamento.consultarPagamento();
 
     //assert
     assert.equal(meuPagamento.codigoDeBarras, '12365-48748-548787-48787');
@@ -22,8 +21,7 @@ describe('Classe para realizar e consultar pagamento', ()=>{
     const realizarEConsultarPagamento = new RealizarEConsultarPagamentos();
     //act
     realizarEConsultarPagamento.realizarPagamento('12365-48748-548787-48787', 'Testes SA', 101.00);
-    const pagamentos = realizarEConsultarPagamento.consultarPagamento();
-    const meuPagamento = pagamentos.at(-1);
+    const meuPagamento = realizarEConsultarPagamento.consultarPagamento();
 
     //assert
     assert.equal(meuPagamento.codigoDeBarras, '12365-48748-548787-48787');
@@ -84,6 +82,28 @@ describe('Classe para realizar e consultar pagamento', ()=>{
       realizarEConsultarPagamento.realizarPagamento(null,'Testes Sa', 54);
     }, {message:'Precisa ser informado um código de barras.'} 
     );
+  });
+  it('Deve retornar apenas o último pagamento realizado', () => {
+    const realizarEConsultarPagamento = new RealizarEConsultarPagamentos();
+
+    realizarEConsultarPagamento.realizarPagamento(
+      '111',
+      'Empresa 1',
+      50
+    );
+
+    realizarEConsultarPagamento.realizarPagamento(
+      '222',
+      'Empresa 2',
+      150
+    );
+
+    const ultimoPagamento = realizarEConsultarPagamento.consultarPagamento();
+
+    assert.equal(ultimoPagamento.codigoDeBarras, '222');
+    assert.equal(ultimoPagamento.nomeEmpresa, 'Empresa 2');
+    assert.equal(ultimoPagamento.valorPago, 150);
+    assert.equal(ultimoPagamento.categoria, 'cara');
   });
      
 });

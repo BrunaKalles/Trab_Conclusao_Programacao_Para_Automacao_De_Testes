@@ -58,7 +58,11 @@ export default class RealizarEConsultarPagamentos {
   }
     
   consultarPagamento() {
-    return this.#pagamentos;
+    if (this.#pagamentos.length === 0) {
+      return null;
+    }
+
+    return this.#pagamentos[this.#pagamentos.length - 1];
   }
 }
 
