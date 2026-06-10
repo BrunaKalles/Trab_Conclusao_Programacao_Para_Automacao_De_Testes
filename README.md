@@ -195,37 +195,19 @@ npm run test
 npm run test:ci
 ```
 
+### Verificar Qualidade do Código (Lint)
+
+```bash
+# Executar ESLint para verificar a qualidade do código
+yarn lint
+```
+
 ### Visualizar Relatório
 
 Após executar `npm run test:ci`, abra o arquivo:
 ```
 mochawesome-report/index.html
 ```
-
----
-
-## 🎯 Objetivos Pedagógicos
-
-Este projeto demonstra:
-
-- ✅ Compreensão de **CI/CD com GitHub Actions**
-- ✅ Prática em **testes automatizados com Mocha**
-- ✅ Implementação de **validações e tratamento de erros**
-- ✅ Uso de **POO em JavaScript**
-- ✅ Organização de **código modular**
-- ✅ Geração de **relatórios de teste**
-- ✅ Versionamento com **Git e GitHub**
-
----
-
-## 📚 Recursos Utilizados
-
-- [GitHub Actions Documentation](https://docs.github.com/en/actions)
-- [Mocha Testing Framework](https://mochajs.org/)
-- [Mochawesome Reporter](https://github.com/adamgruber/mochawesome)
-- [Node.js Assert Module](https://nodejs.org/api/assert.html)
-- [JavaScript ES6 Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
-
 
 ---
 
